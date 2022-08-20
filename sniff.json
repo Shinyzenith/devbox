@@ -1,0 +1,6 @@
+{
+ ".*.go": ["go build"],
+ "sniff_ignore_dir": [],
+ "sniff_ignore_file": ["devbox"],
+ "sniff_cooldown": 650
+}
