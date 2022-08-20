@@ -1,0 +1,19 @@
+image: archlinux
+packages:
+    - git
+    - go
+sources:
+    - https://git.sr.ht/~shinyzenith/devbox
+tasks:
+    - build: |
+          cd devbox
+          go mod tidy
+          go build
+
+    - test: |
+          cd devbox
+          go test
+
+    - fmt: |
+          cd devbox
+          diff -u <(echo -n) <(gofmt -d ./)
