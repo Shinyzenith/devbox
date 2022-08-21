@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/alecthomas/kong v0.6.1
 	github.com/containerd/containerd v1.6.6
+	github.com/sirupsen/logrus v1.9.0
 )
 
 require (
@@ -32,7 +33,6 @@ require (
 	github.com/opencontainers/runtime-spec v1.0.3-0.20210326190908-1c3f411f0417 // indirect
 	github.com/opencontainers/selinux v1.10.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/stretchr/testify v1.8.0 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
