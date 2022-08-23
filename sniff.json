@@ -1,6 +1,20 @@
 {
- ".*.go": ["go build"],
- "sniff_ignore_dir": [],
- "sniff_ignore_file": ["devbox"],
- "sniff_cooldown": 650
+  ".*.go": [
+    "make"
+  ],
+  "sniff_ignore_dir": [
+    ".git",
+    ".builds"
+  ],
+  "sniff_ignore_file": [
+    "devbox",
+    ".editorconfig",
+    ".gitignore",
+    "go.mod",
+    "go.sum",
+    "LICENSE",
+    "Makefile"
+  ],
+  "sniff_cooldown": 650
 }
+

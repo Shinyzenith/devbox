@@ -8,12 +8,8 @@ tasks:
     - build: |
           cd devbox
           go mod tidy
-          go build
+          make
 
     - test: |
           cd devbox
-          go test
-
-    - fmt: |
-          cd devbox
-          diff -u <(echo -n) <(gofmt -d ./)
+          make test
