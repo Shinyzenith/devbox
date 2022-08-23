@@ -1,12 +1,38 @@
-package main
+package imageutil
 
 import (
+	"context"
 	"fmt"
+	"os"
+
+	"github.com/containerd/containerd"
+	"github.com/sirupsen/logrus"
 )
 
-func ResolveShortnameUrl(image_name string, image_tag string) (string, error) {
+func GetImage(ctx context.Context, client *containerd.Client, image_name string, image_tag string) (containerd.Image, error) {
+	logrus.Debugf("Fetching %s:%s image", image_name, image_tag)
+	image_url, err := resolveShortnameUrl(image_name, image_tag)
+	if err != nil {
+		logrus.Error(err)
+		os.Exit(1)
+	}
+
+	image, err := client.GetImage(ctx, image_url)
+	if err != nil {
+		logrus.Debugf("%s:%s not found, Pulling from source.\n", image_name, image_tag)
+		image, err := client.Pull(ctx, image_url, containerd.WithPullUnpack)
+		if err != nil {
+			return nil, err
+		}
+		return image, nil
+	}
+	logrus.Debugf("Found %s:%s image, not pulling.\n", image_name, image_tag)
+	return image, nil
+}
+
+func resolveShortnameUrl(image_name string, image_tag string) (string, error) {
 	var image_url string
-	for name, url := range GetShortNames() {
+	for name, url := range getShortNames() {
 		if image_name == name {
 			image_url = url
 		}
@@ -18,7 +44,7 @@ func ResolveShortnameUrl(image_name string, image_tag string) (string, error) {
 	return image_url, nil
 }
 
-func GetShortNames() map[string]string {
+func getShortNames() map[string]string {
 	val := map[string]string{
 		"almalinux":                    "docker.io/library/almalinux",
 		"almalinux-minimal":            "docker.io/library/almalinux-minimal",
