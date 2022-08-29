@@ -31,17 +31,12 @@ func GetImage(ctx context.Context, client *containerd.Client, image_name string,
 }
 
 func resolveShortnameUrl(image_name string, image_tag string) (string, error) {
-	var image_url string
-	for name, url := range getShortNames() {
-		if image_name == name {
-			image_url = url
-		}
-	}
-	if image_url == "" {
+	if image_url, exists := getShortNames()[image_name]; !exists {
 		return "", fmt.Errorf("Failed to resolve shortname `%s` to image destination url.", image_name)
+	} else {
+		image_url = image_url + ":" + image_tag
+		return image_url, nil
 	}
-	image_url = image_url + ":" + image_tag
-	return image_url, nil
 }
 
 func getShortNames() map[string]string {
