@@ -3,7 +3,7 @@ BINARY:=devbox
 all: build
 
 build:
-	@go build -o devbox cmd/devbox/main.go
+	@go build ./cmd/devbox/
 
 test:
 	@go test ./...
