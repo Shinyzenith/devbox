@@ -3,7 +3,6 @@ package imageutil
 import (
 	"context"
 	"fmt"
-	"os"
 
 	"github.com/containerd/containerd"
 	"github.com/sirupsen/logrus"
@@ -13,8 +12,7 @@ func GetImage(ctx context.Context, client *containerd.Client, image_name string,
 	logrus.Debugf("Fetching %s:%s image", image_name, image_tag)
 	image_url, err := resolveShortnameUrl(image_name, image_tag)
 	if err != nil {
-		logrus.Error(err)
-		os.Exit(1)
+		return nil, err
 	}
 
 	image, err := client.GetImage(ctx, image_url)
