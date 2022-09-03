@@ -6,7 +6,7 @@ import (
 
 func TestShortnameResolver(t *testing.T) {
 	if _, err := resolveShortnameUrl("alpine", "latest"); err != nil {
-		t.Errorf("alpine:latest shortname failed to resolve.")
+		t.Errorf("alpine:latest shortname failed to resolve")
 	}
 
 	if url, err := resolveShortnameUrl("wrong_name", "wrong_tag"); err == nil {

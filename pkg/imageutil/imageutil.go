@@ -17,20 +17,20 @@ func GetImage(ctx context.Context, client *containerd.Client, image_name string,
 
 	image, err := client.GetImage(ctx, image_url)
 	if err != nil {
-		logrus.Debugf("%s:%s not found, Pulling from source.\n", image_name, image_tag)
+		logrus.Debugf("%s:%s not found, Pulling from source", image_name, image_tag)
 		image, err := client.Pull(ctx, image_url, containerd.WithPullUnpack)
 		if err != nil {
 			return nil, err
 		}
 		return image, nil
 	}
-	logrus.Debugf("Found %s:%s image, not pulling.\n", image_name, image_tag)
+	logrus.Debugf("Found %s:%s image, not pulling", image_name, image_tag)
 	return image, nil
 }
 
 func resolveShortnameUrl(image_name string, image_tag string) (string, error) {
 	if image_url, exists := getShortNames()[image_name]; !exists {
-		return "", fmt.Errorf("Failed to resolve shortname `%s` to image destination url.", image_name)
+		return "", fmt.Errorf("Failed to resolve shortname `%s` to image destination url", image_name)
 	} else {
 		image_url = image_url + ":" + image_tag
 		return image_url, nil
