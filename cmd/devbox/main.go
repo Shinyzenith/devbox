@@ -48,7 +48,7 @@ func main() {
 
 	// Adding all the subcommands
 	rootCmd.AddCommand(
-		newCreateCommand(),
+		newRunCommand(),
 	)
 
 	// Parsing flags

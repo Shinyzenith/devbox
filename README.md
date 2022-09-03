@@ -10,3 +10,10 @@ No, I guess great minds think alike. I came up with the project idea, name and t
 
 ## How do I use this?
 You can't...yet.
+
+## Requirements:
+
+1. go (build time)
+1. make (build time)
+1. [containerd](https://github.com/containerd/containerd)
+1. [cni-plugins](https://github.com/containernetworking/plugins)
