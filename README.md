@@ -1,19 +1,14 @@
 # Devbox
 
-## Are you copying https://github.com/jetpack-io/devbox?
-
-No, I guess great minds think alike. I came up with the project idea, name and the language of choice and devbox just so happened to already exist with the same name...same idea...and same language of implementation.
-
-## What differentiates this project?
-1. Feature parity - This project is a WIP.
-1. Less dependent packages - I wrote devbox with the containerd client library so it doesn't depened on Docker or Nix while providing similar functionality. Buildkit based image creation coming soon™️.
-
 ## How do I use this?
+```bash
+$ #Start the containerd server.
+$ sudo devbox --debug run --network --rm alpine edge
+```
 You can't...yet.
 
 ## Requirements:
 
-1. go (build time)
-1. make (build time)
+1. [go](https://github.com/golang/go)
+1. [make](https://git.savannah.gnu.org/cgit/make.git)
 1. [containerd](https://github.com/containerd/containerd)
-1. [cni-plugins](https://github.com/containernetworking/plugins)

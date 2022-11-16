@@ -1,3 +1,12 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-only
+*
+* main.go
+*
+* Created by:	Aakash Sen Sharma
+* Copyright:	(C) 2022, Aakash Sen Sharma & Contributors
+ */
+
 package main
 
 import (
