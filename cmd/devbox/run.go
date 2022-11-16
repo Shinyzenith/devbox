@@ -1,6 +1,16 @@
+/*
+* SPDX-License-Identifier: GPL-3.0-only
+*
+* run.go
+*
+* Created by:	Aakash Sen Sharma
+* Copyright:	(C) 2022, Aakash Sen Sharma & Contributors
+ */
+
 package main
 
 import (
+	"context"
 	"fmt"
 
 	. "git.sr.ht/~shinyzenith/devbox/pkg/containerutil"
@@ -8,8 +18,10 @@ import (
 	"github.com/containerd/console"
 	"github.com/containerd/containerd"
 	"github.com/containerd/containerd/cmd/ctr/commands/tasks"
+	"github.com/containerd/containerd/containers"
 	"github.com/containerd/containerd/contrib/seccomp"
 	"github.com/containerd/containerd/oci"
+	"github.com/opencontainers/runtime-spec/specs-go"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -27,9 +39,8 @@ func newRunCommand() *cobra.Command {
 }
 
 func setRunFlags(cmd *cobra.Command) {
-	//TODO: make use of this lol
-	cmd.Flags().BoolP("tty", "t", false, "Attach to container iostream")
 	cmd.Flags().Bool("rm", false, "Remove container on successful execution")
+	cmd.Flags().Bool("network", false, "Expose the host network to the container")
 }
 
 func runAction(cmd *cobra.Command, args []string) error {
@@ -61,8 +72,6 @@ func runAction(cmd *cobra.Command, args []string) error {
 	}
 
 	// TODO: https://github.com/containerd/containerd/blob/main/contrib/nvidia/nvidia.go maybe support gpu passthrough for game emulation via wayland socket exposure??
-	// TODO: NETWORK! ( go-cni or libnetwork? libnetwork comes with containerd btw )
-	// TODO: Get volumes to work!
 	// TODO: Enabling exposing ports!
 	// TODO: Support limiting CPU, RAM, and crgoups
 	// TODO: Runtime editing of container resources
@@ -75,6 +84,16 @@ func runAction(cmd *cobra.Command, args []string) error {
 
 	// Creating container opts
 	opts = append(opts, oci.WithDefaultSpec(), oci.WithDefaultUnixDevices, oci.WithDefaultPathEnv, oci.WithImageConfig(image), seccomp.WithDefaultProfile(), oci.WithTTY, oci.WithHostname(hostname))
+
+	if host_net, err := cmd.Flags().GetBool("network"); err != nil {
+		return err
+	} else {
+		logrus.Debugf("Container network status: %t", host_net)
+		if host_net {
+			opts = append(opts, oci.WithHostNamespace(specs.NetworkNamespace), oci.WithHostHostsFile, oci.WithHostResolvconf)
+		}
+	}
+
 	cOpts = append(cOpts, containerd.WithImage(image), containerd.WithNewSnapshot(ref_id, image), containerd.WithImageStopSignal(image, "SIGTERM"))
 	cOpts = append(cOpts, containerd.WithNewSpec(opts...))
 
@@ -94,14 +113,14 @@ func runAction(cmd *cobra.Command, args []string) error {
 	}
 
 	// Setting up console
-	console := console.Current()
-	defer console.Reset()
+	con := console.Current()
+	defer con.Reset()
 
-	if err := console.SetRaw(); err != nil {
+	if err := con.SetRaw(); err != nil {
 		return err
 	}
 
-	task, err := tasks.NewTask(ctx, client, container, "", console, false, "", nil)
+	task, err := tasks.NewTask(ctx, client, container, "", con, false, "", nil)
 	if err != nil {
 		return err
 	}
@@ -116,7 +135,7 @@ func runAction(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	if err := tasks.HandleConsoleResize(ctx, task, console); err != nil {
+	if err := tasks.HandleConsoleResize(ctx, task, con); err != nil {
 		logrus.Errorf("Failed to handle resize console: %s", err)
 	}
 
