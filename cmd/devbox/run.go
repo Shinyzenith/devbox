@@ -10,7 +10,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 
 	. "git.sr.ht/~shinyzenith/devbox/pkg/containerutil"
@@ -18,7 +17,6 @@ import (
 	"github.com/containerd/console"
 	"github.com/containerd/containerd"
 	"github.com/containerd/containerd/cmd/ctr/commands/tasks"
-	"github.com/containerd/containerd/containers"
 	"github.com/containerd/containerd/contrib/seccomp"
 	"github.com/containerd/containerd/oci"
 	"github.com/opencontainers/runtime-spec/specs-go"
