@@ -6,7 +6,7 @@ jobs:
         name: "Conventional Commit Compliance Checks"
         runs-on: ubuntu-latest
         steps:
-            - name: Checkoout Devbox
+            - name: Checkout Devbox
               uses: actions/checkout@v3
               with:
                   fetch-depth: 0
@@ -21,10 +21,10 @@ jobs:
             - name: Get required pkgs
               run: |
                   sudo apt update
-                  sudo apt-get install golang make -y
-                  snap install zig --classic --edge
+                  sudo apt-get install golang make musl musl-tools -y
+                  sudo snap install zig --classic --edge
 
-            - name: Checkoout Devbox
+            - name: Checkout Devbox
               uses: actions/checkout@v3
 
             - name: Build Devbox zig_static
@@ -52,7 +52,7 @@ jobs:
                   sudo apt update
                   sudo apt-get install golang make -y
 
-            - name: Checkoout Devbox
+            - name: Checkout Devbox
               uses: actions/checkout@v3
 
             - name: Formatting Check
@@ -69,7 +69,7 @@ jobs:
                   sudo apt update
                   sudo apt-get install golang make -y
 
-            - name: Checkoout Devbox
+            - name: Checkout Devbox
               uses: actions/checkout@v3
 
             - name: Tests
