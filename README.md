@@ -2,6 +2,7 @@
 
 <p align=center>
     <a href="https://builds.sr.ht/~shinyzenith/devbox/commits/master/arch.yml"><img src="https://builds.sr.ht/~shinyzenith/devbox/commits/master/arch.yml.svg"</a>
+	<a href="https://github.com/shinyzenith/devbox/actions"><img src="https://github.com/shinyzenith/devbox/actions/workflows/ubuntu.yaml/badge.svg"></a>
     <a href="https://goreportcard.com/report/git.sr.ht/~shinyzenith/devbox"><img src="https://goreportcard.com/badge/git.sr.ht/~shinyzenith/devbox"></a>
 </p>
 
