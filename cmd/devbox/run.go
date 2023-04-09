@@ -10,7 +10,7 @@
 package main
 
 import (
-	"fmt"
+	"os"
 
 	. "git.sr.ht/~shinyzenith/devbox/pkg/containerutil"
 	. "git.sr.ht/~shinyzenith/devbox/pkg/imageutil"
@@ -144,7 +144,7 @@ func runAction(cmd *cobra.Command, args []string) error {
 	}
 
 	if code != 0 {
-		return fmt.Errorf("Container task exited with non-zero exit code: %d", code)
+		os.Exit(int(code))
 	}
 	return nil
 }

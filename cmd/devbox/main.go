@@ -18,9 +18,23 @@ import (
 
 var (
 	rootCmd = &cobra.Command{
-		Use:              "devbox",
-		Short:            "Instant, easy, ephemeral development containers.",
-		Long:             "Instant, easy, ephemeral development containers.",
+		Use:     "devbox",
+		Example: "devbox [options] [command]",
+		Short: `
+
+     _____          ___                                      ___           ___
+    /  /::\        /  /\          ___         _____         /  /\         /__/|
+   /  /:/\:\      /  /:/_        /__/\       /  /::\       /  /::\       |  |:|
+  /  /:/  \:\    /  /:/ /\       \  \:\     /  /:/\:\     /  /:/\:\      |  |:|
+ /__/:/ \__\:|  /  /:/ /:/_       \  \:\   /  /:/~/::\   /  /:/  \:\   __|__|:|
+ \  \:\ /  /:/ /__/:/ /:/ /\  ___  \__\:\ /__/:/ /:/\:| /__/:/ \__\:\ /__/::::\____
+  \  \:\  /:/  \  \:\/:/ /:/ /__/\ |  |:| \  \:\/:/~/:/ \  \:\ /  /:/    ~\~~\::::/
+   \  \:\/:/    \  \::/ /:/  \  \:\|  |:|  \  \::/ /:/   \  \:\  /:/      |~~|:|~~
+    \  \::/      \  \:\/:/    \  \:\__|:|   \  \:\/:/     \  \:\/:/       |  |:|
+     \__\/        \  \::/      \__\::::/     \  \::/       \  \::/        |  |:|
+                   \__\/           ~~~~       \__\/         \__\/         |__|/
+		Instant and easy ephemeral development containers.
+		`,
 		Version:          "0.1.0",
 		TraverseChildren: true,
 		SilenceUsage:     true,

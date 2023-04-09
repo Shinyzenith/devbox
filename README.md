@@ -5,16 +5,24 @@
     <a href="https://goreportcard.com/report/git.sr.ht/~shinyzenith/devbox"><img src="https://goreportcard.com/badge/git.sr.ht/~shinyzenith/devbox"></a>
 </p>
 
+## Building:
+
+```bash
+$ make
+# make install
+```
 
 ## How do I use this?
 ```bash
-$ #Start the containerd server.
-$ sudo devbox --debug run --network --rm alpine edge
+$ # Start the containerd daemon.
+# containerd
+# devbox --debug run --network --rm alpine edge
 ```
-You can't...yet.
 
 ## Requirements:
 
+1. [containerd](https://github.com/containerd/containerd)
 1. [go](https://github.com/golang/go)
 1. [make](https://git.savannah.gnu.org/cgit/make.git)
-1. [containerd](https://github.com/containerd/containerd)
+1. [musl-gcc](https://www.musl-libc.org/) (Optional: Used to compile statically linked binaries.)
+1. [zig](https://github.com/ziglang/zig) (Optional: Used to compile statically linked binaries.)
