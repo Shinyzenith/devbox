@@ -1,8 +1,8 @@
 BINARY:=devbox
 PREFIX:=/usr
-
-LDFLAGS=-s -w -X github.com/shinyzenith/devbox/version.Version=$(shell git rev-parse HEAD) -linkmode external -extldflags "-static"
 ARCH := $(shell uname -p)
+FMT_REQUIRED:=$(shell gofmt -l $(shell find . -type f -iname *.go))
+LDFLAGS=-s -w -X github.com/shinyzenith/devbox/version.Version=$(shell git rev-parse HEAD) -linkmode external -extldflags "-static"
 
 all: zig_static
 
@@ -29,6 +29,11 @@ dependencies:
 install:
 	mv $(BINARY) $(PREFIX)/bin/$(BINARY)
 
+check:
+	@echo $(FMT_REQUIRED)
+	@test -z $(FMT_REQUIRED)
+	go vet ./...
+
 test:
 	go test ./...
 
@@ -42,4 +47,4 @@ clean:
 	go clean
 	$(RM) -f $(BINARY)
 
-.PHONY:all build test install clean dependencies musl_static zig_static tidy strip
+.PHONY:all build test install clean dependencies musl_static zig_static tidy strip check

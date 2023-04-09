@@ -29,6 +29,7 @@ jobs:
 
             - name: Build Devbox zig_static
               run: |
+                  make tidy
                   make clean
                   make zig_static
 
@@ -56,6 +57,7 @@ jobs:
 
             - name: Formatting Check
               run: |
+                  make tidy
                   make check
 
     tests:
@@ -72,4 +74,5 @@ jobs:
 
             - name: Tests
               run: |
+                  make tidy
                   make test
