@@ -1,0 +1,75 @@
+name: Build Devbox
+
+on: [push, pull_request]
+jobs:
+    conventional_commit_compliance:
+        name: "Conventional Commit Compliance Checks"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkoout Devbox
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+
+            - name: Check conventional commit compliance
+              uses: cocogitto/cocogitto-action@v3
+
+    build:
+        name: "Build Devbox"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get required pkgs
+              run: |
+                  sudo apt update
+                  sudo apt-get install golang make -y
+                  snap install zig --classic --edge
+
+            - name: Checkoout Devbox
+              uses: actions/checkout@v3
+
+            - name: Build Devbox zig_static
+              run: |
+                  make clean
+                  make zig_static
+
+            - name: Build Devbox musl_static
+              run: |
+                  make clean
+                  make musl_static
+
+            - name: Build Devbox
+              run: |
+                  make clean
+                  make build
+
+    format_checks:
+        name: "Formatting Checks"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get required pkgs
+              run: |
+                  sudo apt update
+                  sudo apt-get install golang make -y
+
+            - name: Checkoout Devbox
+              uses: actions/checkout@v3
+
+            - name: Formatting Check
+              run: |
+                  make check
+
+    tests:
+        name: "Test cases"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get required pkgs
+              run: |
+                  sudo apt update
+                  sudo apt-get install golang make -y
+
+            - name: Checkoout Devbox
+              uses: actions/checkout@v3
+
+            - name: Tests
+              run: |
+                  make test
