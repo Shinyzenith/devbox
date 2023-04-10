@@ -12,14 +12,14 @@ package main
 import (
 	"os"
 
-	. "git.sr.ht/~shinyzenith/devbox/pkg/containerutil"
-	. "git.sr.ht/~shinyzenith/devbox/pkg/imageutil"
 	"github.com/containerd/console"
 	"github.com/containerd/containerd"
 	"github.com/containerd/containerd/cmd/ctr/commands/tasks"
 	"github.com/containerd/containerd/contrib/seccomp"
 	"github.com/containerd/containerd/oci"
 	"github.com/opencontainers/runtime-spec/specs-go"
+	. "github.com/shinyzenith/devbox/pkg/containerutil"
+	. "github.com/shinyzenith/devbox/pkg/imageutil"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

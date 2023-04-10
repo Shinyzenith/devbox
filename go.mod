@@ -1,4 +1,4 @@
-module git.sr.ht/~shinyzenith/devbox
+module github.com/shinyzenith/devbox
 
 go 1.18
 
