@@ -8,19 +8,19 @@ all: zig_static
 
 build: tidy
 	go build ./cmd/$(BINARY)
-	$(MAKE) -s strip
+	strip $(BINARY)
 
 zig_static: tidy
 	CGO_ENALBED=1 CC="zig cc -target ${ARCH}-linux-musl" go build -v \
 				-ldflags '${LDFLAGS}' \
 				./cmd/$(BINARY)/
-	$(MAKE) -s strip
+	strip $(BINARY)
 
 musl_static: tidy
 	CGO_ENALBED=1 CC="musl-gcc" go build -v \
 				-ldflags '${LDFLAGS}' \
 				./cmd/$(BINARY)/
-	@$(MAKE) -s strip
+	strip $(BINARY)
 
 dependencies:
 	go get -u ./...
@@ -40,11 +40,8 @@ test:
 tidy:
 	go mod tidy
 
-strip:
-	strip $(BINARY)
-
 clean:
 	go clean
 	$(RM) -f $(BINARY)
 
-.PHONY:all build test install clean dependencies musl_static zig_static tidy strip check
+.PHONY:all build test install clean dependencies musl_static zig_static tidy check
